@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue({
@@ -15,4 +14,12 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
+  publicDir: "static",
+  server: {
+    host: true,
+    port: 10123,
+  },
+  build: {
+    chunkSizeWarningLimit: 700,
+  },
 });

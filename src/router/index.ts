@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import ViewManager from "../components/ViewManager.vue";
 
 const routes = [
-  { path: "/", name: "Home", component: ViewManager, meta: { view: "home-view" } },
+  { path: "/", redirect: "/app-builder" },
   { path: "/app-builder", name: "AppBuilder", component: ViewManager, meta: { view: "chat-view" } },
 ];
 

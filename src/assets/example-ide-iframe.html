@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chat page</title>
+    <script type="module" src="./rpc/rpc-common.js"></script>
+    <script type="module" src="./rpc/rpc-browser-ws.js"></script>
+    <script type="module">
+        import { RpcBrowserWebSockets } from "./rpc/rpc-browser-ws.js";
+
+        window.onload = () => {
+            let rpc;
+            const ws = new WebSocket("ws://127.0.0.1:10124");
+            ws.onopen = (event) => {
+                // logger is optional second parameter, implementing interface IChildLogger:
+                // https://github.com/SAP/vscode-logging/blob/master/packages/types/api.d.ts#L17
+                rpc = new RpcBrowserWebSockets(ws);
+                rpc.setResponseTimeout(30000);
+            };
+
+            const subtractButton = document.getElementById("ideButton");
+            subtractButton.onclick = () => {
+                rpc.invoke("navigateTo", ['application-view']).then(() => {
+                    console.log("Navigation to application view initiated.");
+                });
+            }
+
+        };
+    </script>
+</head>
+
+<body style="font-family: Arial, Helvetica, sans-serif;">
+    <h2>IDE Editor</h2>
+    <button id="ideButton">Go back to vibing</button>
+</body>
+
+</html>

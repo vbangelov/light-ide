@@ -41,6 +41,7 @@ export default defineConfig([
       semi: "error",
       "prefer-const": "error",
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-function-types": "off",
     },
   },
 ]);

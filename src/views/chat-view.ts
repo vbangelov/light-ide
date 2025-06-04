@@ -1,13 +1,13 @@
-import type { View } from "src/types/View";
+import type { ViewLayout } from "src/types/view";
 
-const layout: { id: string; layout: string; views: View[] } = {
+const layout: ViewLayout = {
   id: "chat-view",
-  layout: "one-column",
+  columns: 1,
   views: [
     {
       id: "chat",
-      src: "/src/iframes/ChatIframe.vue",
-      position: "main",
+      src: "src/assets/example-chat-iframe.html",
+      position: 1,
     },
   ],
 };

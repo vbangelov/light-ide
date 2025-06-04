@@ -5,17 +5,22 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:all": "npm-run-all --parallel dev:ws dev:client",
+    "dev:client": "vite",
+    "dev:ws": "tsx src/rpc/ws-server.ts",
     "build": "vite build",
-    "build-tsc": "vue-tsc --noEmit && vite build",
+    "build:client": "vite build",
+    "build:ws": "tsc -p tsconfig.ws.json",
+    "build:all": "npm-run-all build:client build:ws",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint . --ext .ts,.vue",
     "lint:fix": "eslint . --ext .ts,.vue --fix --max-warnings=0",
     "lint:validate": "eslint . --ext .ts,.vue --max-warnings=0",
-    "clean": "rimraf ./dist ./coverage",
-    "ci": "npm-run-all clean format:validate lint:validate build",
     "format:fix": "prettier --print-width 120 --write \"**/*.@(js|ts|json|md|vue)\" --ignore-path=.gitignore",
-    "format:validate": "prettier --print-width 120 --check \"**/*.@(js|ts|json|md|vue)\" --ignore-path=.gitignore"
+    "format:validate": "prettier --print-width 120 --check \"**/*.@(js|ts|json|md|vue)\" --ignore-path=.gitignore",
+    "clean": "rimraf ./dist ./coverage",
+    "ci": "npm-run-all clean format:validate lint:validate test build:all"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.8",
@@ -24,10 +29,12 @@
     "@ui5/webcomponents-icons": "^2.10.0",
     "tailwindcss": "^4.1.8",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "ws": "^7.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.27.0",
+    "@types/ws": "^7.2.3",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "@typescript-eslint/parser": "^8.33.0",
     "@vitejs/plugin-vue": "^5.2.3",
@@ -39,6 +46,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vitest": "^3.1.4",

@@ -1,25 +1,12 @@
-import type { View } from "src/types/View";
+import type { ViewLayout } from "src/types/view";
 
-const layout: { id: string; layout: string; views: View[] } = {
+const layout: ViewLayout = {
   id: "application-view",
-  layout: "two-column",
+  columns: 2,
   views: [
-    {
-      id: "preview",
-      src: "/src/iframes/ApplicationIframe.vue",
-      position: "main",
-    },
-    {
-      id: "overview",
-      src: "/src/iframes/ApplicationOverviewIframe.vue",
-      position: "main",
-      display: false,
-    },
-    {
-      id: "chat",
-      src: "/src/iframes/ChatIframe.vue",
-      position: "right",
-    },
+    { id: "preview", src: "src/assets/example-application-iframe.html", position: 1 },
+    { id: "overview", src: "src/assets/example-application-overview-iframe.html", position: 1, display: false },
+    { id: "chat", src: "src/assets/example-chat-iframe.html", position: 2 },
   ],
 };
 

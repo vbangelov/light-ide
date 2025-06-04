@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 
 const props = defineProps<{ activeView: string }>();
 const emit = defineEmits(["change-view", "toggle-view"]);
@@ -54,6 +54,10 @@ ui5-button::part(button) {
   font-weight: 500;
   color: #6200ee; /* Adjust to match your primary color */
   border: 1px solid #8a2be2;
+}
+ui5-button:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 ui5-segmented-button::part(root) {
