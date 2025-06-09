@@ -1,43 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Chat page</title>
-    <script type="module" src="./rpc/rpc-common.js"></script>
-    <script type="module" src="./rpc/rpc-browser-ws.js"></script>
-    <script type="module">
-        import { RpcBrowserWebSockets } from "./rpc/rpc-browser-ws.js";
-
-        window.onload = () => {
-            let rpc;
-
-            const ws = new WebSocket("ws://127.0.0.1:10124");
-            ws.onopen = (event) => {
-                // logger is optional second parameter, implementing interface IChildLogger:
-                // https://github.com/SAP/vscode-logging/blob/master/packages/types/api.d.ts#L17
-                rpc = new RpcBrowserWebSockets(ws);
-                rpc.setResponseTimeout(30000);
-            };
-
-            const applicationButton = document.getElementById("applicationButton");
-            applicationButton.onclick = () => {
-                rpc.invoke("changeStyle", ['blue']).then(() => {
-                    const h3 = document.createElement("h3");
-                    h3.textContent = "Style of chat iframe changed to blue";
-
-                    const heading = document.querySelector("h2");
-                    if (heading && heading.parentNode) {
-                    heading.parentNode.insertBefore(h3, heading.nextSibling);
-                    }
-                });
-            }
-
-        };
-    </script>
+  <meta charset="UTF-8" />
+  <title>Dummy Iframe</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+    }
+  </style>
 </head>
-
-<body style="font-family: Arial, Helvetica, sans-serif;">
-    <h2>Generated application</h2>
-    <button id="applicationButton">Change style of chat iframe</button>
+<body>
+  <h2>Generated Application</h2>
 </body>
-
 </html>

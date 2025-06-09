@@ -17,6 +17,7 @@ import { ref, computed, watch } from "vue";
 import { markRaw } from "vue";
 import type { ViewLayout, View } from "src/types/view";
 import IFrameHost from "./IFrameHost.vue";
+import { buildChatPanelUrl } from "../utils/env-utils";
 
 const props = defineProps<{ activeView: string; toggleView: string }>();
 
@@ -41,15 +42,24 @@ const columnClass = computed(() => {
 });
 
 async function loadComponent(view: View) {
-  if (view.src.endsWith(".html")) {
     loadedComponents.value[view.id] = markRaw({
       extends: IFrameHost,
       props: { src: { default: view.src } },
     });
-  } else {
-    const module = await import(/* @vite-ignore */ `${view.src}`);
-    loadedComponents.value[view.id] = markRaw(module.default);
+}
+
+function setupChatIframeSrc() {
+  const baseUrl = (window as any).WORKSPACE_BASE_URL;
+
+  if (!baseUrl) {
+    console.warn("WORKSPACE_BASE_URL is not defined on window.");
+    return null;
   }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const prompt = urlParams.get("prompt") || "";
+
+  return buildChatPanelUrl(baseUrl, prompt);
 }
 
 async function loadView(file: string) {
@@ -59,6 +69,11 @@ async function loadView(file: string) {
 
   for (const view of newLayout.views) {
     if (view.display !== false && !loadedComponents.value[view.id]) {
+      console.log(`Loading component for view: ${view.id}`);
+      console.log(`Component source: ${view.src}`);
+      if (view.id === "chat") {
+        view.src = setupChatIframeSrc() || view.src;
+      }
       await loadComponent(view);
     }
   }

@@ -6,8 +6,8 @@
   font-weight: 400;
 
   color-scheme: light;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #213547;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,8 +21,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #ffffff;
+  color: #213547;
 }
-
 
 #app {
   margin: 0 auto;
@@ -37,13 +38,11 @@ body {
   height: 100%;
   margin-bottom: 10px;
   margin-top: 10px;
-  /* temporary styles below - delete */
   border-radius: 20px;
   background: linear-gradient(to top, rgb(241, 236, 250), rgb(239, 240, 253));
   cursor: pointer;
 }
 
- /* temporary styles below - delete */
 .iframe-container-lavender-gray {
   background: linear-gradient(to top, #eae8f2, #f5f4fa);
 }
@@ -54,15 +53,3 @@ body {
   background: linear-gradient(to top, #e9f8f2, #f6fdfb);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}

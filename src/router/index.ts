@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import ViewManager from "../components/ViewManager.vue";
 
 const routes = [
-  { path: "/", redirect: "/app-builder" },
-  { path: "/app-builder", name: "AppBuilder", component: ViewManager, meta: { view: "chat-view" } },
+  // TODO: Return back to start with chat-view
+  { path: "/", name: "AppBuilder", component: ViewManager, meta: { view: "application-view" } },
 ];
 
 const router = createRouter({
