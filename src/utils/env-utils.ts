@@ -27,14 +27,6 @@ export function getWorkspaceBaseUrl(url: string): string | null {
 }
 
 /**
- * Converts a full URL into the H20 url.
- */
-export function getH2OUrl(url: string): string | null {
-  console.log("getH2OUrl called with:", url);
-  return "https://bas-extensions.stg10cf.int.applicationstudio.cloud.sap";
-}
-
-/**
  * Builds the chat panel iframe URL. Temporary method.
  */
 export function buildChatPanelUrl(baseUrl: string, prompt: string): string | null {

@@ -42,10 +42,10 @@ const columnClass = computed(() => {
 });
 
 async function loadComponent(view: View) {
-    loadedComponents.value[view.id] = markRaw({
-      extends: IFrameHost,
-      props: { src: { default: view.src } },
-    });
+  loadedComponents.value[view.id] = markRaw({
+    extends: IFrameHost,
+    props: { src: { default: view.src } },
+  });
 }
 
 function setupChatIframeSrc() {
