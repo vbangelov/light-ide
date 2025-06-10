@@ -45,3 +45,23 @@ export function buildChatPanelUrl(baseUrl: string, prompt: string): string | nul
     return null;
   }
 }
+
+/**
+ * Builds the application panel iframe URL. Temporary method.
+ */
+export function buildApplicationPanelUrl(baseUrl: string): string | null {
+  try {
+    const parsedUrl = new URL(baseUrl);
+    const originalHost = parsedUrl.hostname;
+
+    const portPrefixedHost = /^port10125-/.test(originalHost) ? originalHost : `port10125-${originalHost}`;
+
+    parsedUrl.hostname = portPrefixedHost;
+
+    console.log("Building application panel URL:", parsedUrl.toString());
+    return parsedUrl.toString();
+  } catch (err) {
+    console.error("Error building application panel URL:", err);
+    return null;
+  }
+}

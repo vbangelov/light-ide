@@ -17,7 +17,7 @@ import { ref, computed, watch } from "vue";
 import { markRaw } from "vue";
 import type { ViewLayout, View } from "src/types/view";
 import IFrameHost from "./IFrameHost.vue";
-import { buildChatPanelUrl } from "../utils/env-utils";
+import { buildChatPanelUrl, buildApplicationPanelUrl } from "../utils/env-utils";
 
 const props = defineProps<{ activeView: string; toggleView: string }>();
 
@@ -62,6 +62,16 @@ function setupChatIframeSrc() {
   return buildChatPanelUrl(baseUrl, prompt);
 }
 
+function setupApplicationIframeSrc() {
+  const baseUrl = (window as any).WORKSPACE_BASE_URL;
+
+  if (!baseUrl) {
+    console.warn("WORKSPACE_BASE_URL is not defined on window.");
+    return null;
+  }
+  return buildApplicationPanelUrl(baseUrl);
+}
+
 async function loadView(file: string) {
   const module = await import(/* @vite-ignore */ `/src/views/${file}.ts`);
   const newLayout = module.default;
@@ -72,7 +82,12 @@ async function loadView(file: string) {
       console.log(`Loading component for view: ${view.id}`);
       console.log(`Component source: ${view.src}`);
       if (view.id === "chat") {
+         console.log(`Will build custom src for chat view`);
         view.src = setupChatIframeSrc() || view.src;
+      }
+      if (view.id === "preview" || view.id === "overview") {
+        console.log(`Will build custom src for view: ${view.id}`);
+        view.src = setupApplicationIframeSrc() || view.src;
       }
       await loadComponent(view);
     }
